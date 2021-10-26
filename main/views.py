@@ -1,16 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from .forms import UserCreationForm, UserLogin
 
 
+@login_required
 def home_page(request):
     context = {
-
+        "user":request.user
     }
     return render(request, 'index.html', context)
 
+@login_required
+def funding(request):
+    return render(request, 'funding.html')
 
 def login_view(request):
     form = UserLogin()
@@ -45,3 +50,9 @@ def register_view(request):
         "title": "Register - SaveBetter"
     }
     return render(request, 'register.html', context)
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect("login_view")

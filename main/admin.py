@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, get_user_model
 from django.contrib.contenttypes.models import ContentType
 
 from .forms import UserChangeForm, UserCreationForm
+from .models import Profile
 
 User = get_user_model()
 
@@ -36,3 +37,4 @@ class CustomUserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(Profile)
