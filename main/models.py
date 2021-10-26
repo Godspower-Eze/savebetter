@@ -8,6 +8,8 @@ from .managers import UserManager
 
 USERNAME_REGEX = '^[a-zA-Z0-9.+-]*$'
 
+ETH_ADDRESS_REGEX = '^0x[a-fA-F0-9]{40}$'
+
 
 class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     username = models.CharField(max_length=100, validators=[RegexValidator(regex=USERNAME_REGEX,
@@ -41,3 +43,16 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         Returns the short name for the user.
         """
         return self.first_name
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='document/', default='default.png',
+                                    help_text="Ensure your picture dimension is 300x300 in px ~Iykeln :)")
+
+    address = models.CharField(max_length=42, validators=[RegexValidator(regex=ETH_ADDRESS_REGEX, 
+                                                                             message="Enter a valid ethereum address", 
+                                                                             code='Invalid address')], unique=True)
+
+    def __str__(self):
+        return f"{self.user.email}"

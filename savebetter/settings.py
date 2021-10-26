@@ -76,6 +76,7 @@ WSGI_APPLICATION = 'savebetter.wsgi.application'
 
 AUTH_USER_MODEL = 'main.User'
 
+LOGIN_URL = 'login_view'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -126,6 +127,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
