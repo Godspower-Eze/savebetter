@@ -53,6 +53,8 @@ class Profile(models.Model):
     address = models.CharField(max_length=42, validators=[RegexValidator(regex=ETH_ADDRESS_REGEX, 
                                                                              message="Enter a valid ethereum address", 
                                                                              code='Invalid address')], unique=True)
+    balance = models.FloatField(default=0)
+    profit = models.FloatField(default=0)
 
     def __str__(self):
         return f"{self.user.email}"
