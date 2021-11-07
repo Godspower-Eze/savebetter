@@ -30,6 +30,10 @@ def funding(request):
     return render(request, 'funding.html')
 
 def login_view(request):
+
+    if request.user.is_authenticated:
+        return redirect('home_page')
+
     form = UserLogin()
 
     if request.method == "POST":
@@ -48,6 +52,10 @@ def login_view(request):
 
 
 def register_view(request):
+    
+    if request.user.is_authenticated:
+        return redirect('home_page')
+
     form = UserCreationForm()
     if request.method == "POST":
         form = UserCreationForm(request.POST)
